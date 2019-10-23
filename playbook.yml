@@ -1,11 +1,6 @@
 ---
 - name: Playbook to recreate the RHCOS ISO for static IP
   hosts: localhost
-  vars:
-    ocp_version: 4.2
-    iso_checksum: 649cdcf265bf39c0386331ec9b100da7c4800eae6c5aab4a8c28514b6efc5289
-    iso_name: rhcos-{{ ocp_version }}.0-x86_64-installer.iso
-    interface: ens192
   gather_facts: false
 
   tasks:
