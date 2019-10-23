@@ -30,6 +30,7 @@ In the `group_vars/all.yml` file, define the following variables:
 
 `iso_name`	- Name of the ISO to download.  Makes certain assumptions that should be verified
 
+`rhcos_bios`	- Name of the BIOS image to boot from.  Make certain assumptions that should be verified
 
 In `inventory.yml` you will need to define your hosts:
 
