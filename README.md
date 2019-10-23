@@ -43,3 +43,6 @@ In `inventory.yml` you will need to define your hosts:
 You will need to use create individual ignition files and load them to your webserver.
 This project does NOT currently do that.
 
+# Acknowlegements
+Special thanks to Shanna Chan for trailblazing these issues (detail 
+here: https://shanna-chan.blog/2019/07/26/openshift4-vsphere-static-ip/) and inspiring its creation.
