@@ -30,10 +30,6 @@
   hosts: all
   serial: 1
   gather_facts: false
-  vars:
-    ocp_version: 4.2
-    iso_name: rhcos-{{ ocp_version }}.0-x86_64-installer.iso
-    rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal-bios.raw.gz
 
   tasks:
 
