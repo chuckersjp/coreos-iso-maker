@@ -71,7 +71,6 @@
            -no-emul-boot .
     args:
       chdir: /tmp/rhcos-iso/
-      creates: /tmp/rhcos_install-{{ inventory_hostname_short }}.iso
     become: true
     delegate_to: localhost
 
