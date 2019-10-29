@@ -23,6 +23,8 @@ In the `group_vars/all.yml` file, define the following variables:
 
 `webserver_url` - webserver that holds the Ignition file
 
+`webserver_port` - webserver port for the webserver above
+
 
 `ocp_version` 	- OCP version you are going for.  Currently defaults to 4.2
 
