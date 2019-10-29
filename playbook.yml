@@ -51,11 +51,15 @@
 
   - name: Add image_url
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}/{{ rhcos_bios }}"
+      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port }}/{{ rhcos_bios }}"
 
   - name: Add ignition_url
     set_fact:
+<<<<<<< HEAD
       cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}/{{ inventory_hostname_short }}.ign"
+=======
+      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port }}/{{ inventory_hostname_short }}.ign"
+>>>>>>> 5ab4bdb4325975c30388c7ad96b92f6f72ddadc7
 
   - name: Replace the isolinux.cfg file
     template:
@@ -71,7 +75,6 @@
            -no-emul-boot .
     args:
       chdir: /tmp/rhcos-iso/
-      creates: /tmp/rhcos_install-{{ inventory_hostname_short }}.iso
     become: true
     delegate_to: localhost
 
