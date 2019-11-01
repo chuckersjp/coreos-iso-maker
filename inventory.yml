@@ -3,7 +3,7 @@ all:
   children:
     bootstrap_node:
       hosts:
-        bootstrap:
+        bootstrap.example.com:
           ipv4: 192.168.122.15
     
     masters:
