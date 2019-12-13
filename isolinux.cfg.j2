@@ -14,10 +14,12 @@ menu clear
 menu background splash.png
 menu title RHEL CoreOS Installer 
 menu vshift 8
-menu rows 18
+#menu rows 18
+menu rows 25
 menu margin 8
 #menu hidden
-menu helpmsgrow 15
+#menu helpmsgrow 15
+menu helpmsgrow -1
 menu tabmsgrow 13
 
 # Border Area
@@ -62,11 +64,11 @@ menu tabmsg Press Tab for full configuration options on menu items.
 menu separator # insert an empty line
 menu separator # insert an empty line
 
-label linux
-  menu label ^Install RHEL CoreOS
+# Menu list items start here
+{% for server in ansible_play_hosts_all|sort %}
+label Linux
+  menu label ^Install on {{ server }}
   kernel /images/vmlinuz
-  append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes {{ cmd_args }}
-
-menu separator # insert an empty line
-
+  append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes ip={{ hostvars[server].ipv4 }}::{{ hostvars[server].gateway }}:{{ hostvars[server].netmask }}:{{ server }}:{{ hostvars[server].interface }}:none nameserver={{ dns }} coreos.inst.install_dev=sda coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ hostvars[server].inventory_hostname_short }}.ign
+{% endfor %}
 menu end

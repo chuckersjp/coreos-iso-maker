@@ -26,42 +26,24 @@
         src: /mnt/iso/
         dest: /tmp/rhcos-iso/
 
-- name: Create the required ISOs
+- name: Generate the menu list
   hosts: all
-  serial: 1
+  order: sorted
   gather_facts: false
 
   tasks:
 
-  - name: Build our additional variables
-    set_fact:
-      cmd_args: "append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes"
-
-  - name: Add ip address info
-    set_fact:
-      cmd_args: "{{ cmd_args }} ip={{ ipv4 }}::{{ gateway }}:{{ netmask }}:{{ inventory_hostname }}:{{ interface }}:none"
-
-  - name: Add install DNS
-    set_fact:
-      cmd_args: "{{ cmd_args }} nameserver={{ dns }}"
-
-  - name: Add install device name
-    set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.install_dev=sda"
-
-  - name: Add image_url
-    set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }}"
-
-  - name: Add ignition_url
-    set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ inventory_hostname_short }}.ign"
-
-  - name: Replace the isolinux.cfg file
+  - name: Relace the isolinux.cfg file
     template:
       src: isolinux.cfg.j2
       dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
     delegate_to: localhost
+
+- name: Make the single ISO
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
 
   - name: Create new ISO image
     command: >
