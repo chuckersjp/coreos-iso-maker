@@ -1,17 +1,18 @@
-# coreos-iso-maker V2.0
-Create a single coreos ISO for OCP 4.x installs when you need to set static IPs
-
-This project is borderline close to a gist but should be enough to get you started.
+# coreos-iso-maker V2.1
+This version incorporates the ability to generate either a single ISO for OCP 4.x
+installations or multiple ISOs depending on needs.  These ISOs are created for
+when you need statis IPs.
 
 # Problem definition
 Some customers would like to use static IPs for their OCP nodes but don't have a
 working DHCP server for various reasons.  This can be done using the ISO for CoreOS
 and messing with the boot parameters.  However, this is involves lots of error prone
 typing.  This project is designed to work around that and originally created individualized ISOs
-for each node.  In v2.0, it now creates a single ISO with a menu item for each node being
+for each node.  In v2.1, it can be used to  create a single ISO with a menu item for each node being
 built.  Due to screen space limitations, it is NOT recommend that you use this to create
 more than 7 nodes at a time (1 bootstrap, 3 master control planes, and 3 worker nodes).
 It _might_ work, but you might have problems with the display on boot.  Caveat user.
+If you would prefer to have multiple ISOs, there is a separate playbook for that.
 
 # Variables to define
 In the `group_vars/all.yml` file, define the following variables:
@@ -47,6 +48,17 @@ In `inventory.yml` you will need to define your hosts:
 
 You will need to use create individual ignition files and load them to your webserver.
 This project does NOT currently do that.
+
+Once the inventory is created, you can run either of the following commands:
+
+For single:
+`ansible-playbook playbook-single.yml -K`
+
+For multiple:
+`ansible-playbook playbook-multi.yml -K`
+
+The ISO(s) will be created in the `/tmp` directory.  The `-K` is to request for the BECOME password which is
+required to mount an ISO (assuming you don't have passwordless `sudo`).
 
 # Acknowlegements
 Special thanks to Shanna Chan for trailblazing these issues (detail 
