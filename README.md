@@ -1,7 +1,11 @@
-# coreos-iso-maker V2.1
+# coreos-iso-maker V2.2
 This version incorporates the ability to generate either a single ISO for OCP 4.x
 installations or multiple ISOs depending on needs.  These ISOs are created for
 when you need statis IPs.
+
+New in the version:  Make sure that genisoimage package is installed.
+Specially thanks to Scott Worthington (https://github.com/worsco)
+for this Pull Request.
 
 # Problem definition
 Some customers would like to use static IPs for their OCP nodes but don't have a
