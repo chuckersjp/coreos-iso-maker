@@ -63,6 +63,12 @@
       dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
     delegate_to: localhost
 
+  - name: Ensure mkisofs is installed
+    yum:
+      name: genisoimage
+    become: true
+    delegate_to: localhost
+
   - name: Create new ISO image
     command: >
          /usr/bin/mkisofs -U -A 'RHCOS-x86_64' -V 'RHCOS-x86_64' -volset 'RHCOS-x86_64' -J -joliet-long -r -v -T 
