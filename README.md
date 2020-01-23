@@ -34,9 +34,9 @@ In the `group_vars/all.yml` file, define the following variables:
 `webserver_port` - webserver port for the webserver above
 
 
-`ocp_version` 	- OCP version you are going for.  Currently defaults to 4.2
+`ocp_version` 	- OCP version you are going for.  Currently defaults to 4.3
 
-`iso_checksum`	- sha256 checksum of the ISO.  Currently correct as of 2019-10-23 and OCP 4.2
+`iso_checksum`	- sha256 checksum of the ISO.  Currently correct as of 2020-01-23 and OCP 4.3
 
 `iso_name`	- Name of the ISO to download.  Makes certain assumptions that should be verified
 
