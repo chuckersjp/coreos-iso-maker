@@ -3,6 +3,14 @@
   hosts: localhost
   gather_facts: false
 
+  pre_tasks: 
+  
+  - name: Ensure mkisofs is installed
+    yum:
+      name: genisoimage
+    become: true
+    delegate_to: localhost
+
   tasks:
 
   - block:
@@ -61,12 +69,6 @@
     template:
       src: isolinux.cfg-multi.j2
       dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
-    delegate_to: localhost
-
-  - name: Ensure mkisofs is installed
-    yum:
-      name: genisoimage
-    become: true
     delegate_to: localhost
 
   - name: Create new ISO image

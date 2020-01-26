@@ -3,6 +3,14 @@
   hosts: localhost
   gather_facts: false
 
+  pre_tasks:
+
+  - name: Ensure mkisofs is installed
+    yum:
+      name: genisoimage
+    become: true
+    delegate_to: localhost
+
   tasks:
 
   - block:
@@ -44,12 +52,6 @@
   gather_facts: false
 
   tasks:
-
-  - name: Ensure mkisofs is installed
-    yum:
-      name: genisoimage
-    become: true
-    delegate_to: localhost
 
   - name: Create new ISO image
     command: >
