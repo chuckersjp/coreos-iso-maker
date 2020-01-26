@@ -53,7 +53,7 @@
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ inventory_hostname_short }}.ign"
 
-  - name: Replace the isolinux.cfg file
+  - name: Replace the grub.cfg file
     template:
       src: grub-multi.cfg.j2
       dest: /tmp/rhcos-iso/EFI/redhat/grub.cfg
