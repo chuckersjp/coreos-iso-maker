@@ -1,11 +1,16 @@
-# coreos-iso-maker V2.2
+# coreos-iso-maker V2.3
 This version incorporates the ability to generate either a single ISO for OCP 4.x
 installations or multiple ISOs depending on needs.  These ISOs are created for
 when you need statis IPs.
 
-New in the version:  Make sure that genisoimage package is installed.
-Specially thanks to Scott Worthington (https://github.com/worsco)
+New from version 2.2:  Make sure that genisoimage package is installed.
+Special thanks to Scott Worthington (https://github.com/worsco)
 for this Pull Request.
+
+New in version 2.3: Enable UEFI booting by also adjusting the grub.cfg.  This
+also fixed a long standing and unnoticed bug in previous version.  Special thanks
+to ahmbas (https://github.com/ahmbas) for helping me find this bug and making me learn
+more about ISOLINUX vs. UEFI booting.
 
 # Problem definition
 Some customers would like to use static IPs for their OCP nodes but don't have a

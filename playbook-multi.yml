@@ -43,7 +43,7 @@
 
   - name: Build our additional variables
     set_fact:
-      cmd_args: "append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes"
+      cmd_args: ""
 
   - name: Add ip address info
     set_fact:
@@ -69,8 +69,16 @@
     template:
       src: isolinux.cfg-multi.j2
       dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
+    become: true
     delegate_to: localhost
 
+  - name: Replace the grub.cfg file
+    template:
+      src: grub.cfg-multi.j2
+      dest: /tmp/rhcos-iso/EFI/redhat/grub.cfg
+    become: true
+    delegate_to: localhost
+    
   - name: Create new ISO image
     command: >
          /usr/bin/mkisofs -U -A 'RHCOS-x86_64' -V 'RHCOS-x86_64' -volset 'RHCOS-x86_64' -J -joliet-long -r -v -T 

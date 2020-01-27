@@ -45,6 +45,14 @@
     template:
       src: isolinux.cfg-single.j2
       dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
+    become: true
+    delegate_to: localhost
+
+  - name: Relace the grub.cfg file
+    template:
+      src: grub.cfg-single.j2
+      dest: /tmp/rhcos-iso/EFI/redhat/grub.cfg
+    become: true
     delegate_to: localhost
 
 - name: Make the single ISO
