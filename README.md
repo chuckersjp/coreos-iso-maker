@@ -1,4 +1,9 @@
-# coreos-iso-maker V2.3
+# coreos-iso-maker V2.4
+New in this version:  The `dns` variable in `group_vars/all.yml` is now a list.  Because of the way DNS works
+do NOT specify more than 3 servers for this.  Thanks to Scott Worthington (https://github.com/worsco) for pointers
+on how to do this.
+
+New in Version 2.3
 This version incorporates the ability to generate either a single ISO for OCP 4.x
 installations or multiple ISOs depending on needs.  These ISOs are created for
 when you need statis IPs.

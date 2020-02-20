@@ -51,7 +51,18 @@
 
   - name: Add install DNS
     set_fact:
-      cmd_args: "{{ cmd_args }} nameserver={{ dns }}"
+      cmd_args: "{{ cmd_args }} nameserver={{ dns[0] }}"
+
+# The following can likely be done better but I can't think of a cleaner way just yet.
+  - name: Add second install DNS
+    set_fact:
+      cmd_args: "{{ cmd_args }} nameserver={{ dns[1] }}"
+    when: "{{ dns[1] }}" is defined
+
+  - name: Add third install DNS
+    set_fact:
+      cmd_args: "{{ cmd_args }} nameserver={{ dns[2] }}"
+    when: "{{ dns[2] }}" is defined
 
   - name: Add install device name
     set_fact:

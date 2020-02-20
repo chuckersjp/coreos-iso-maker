@@ -4,7 +4,9 @@ netmask: 255.255.255.0
 # VMWare default ens192
 # KVM default ens3
 interface: ens192
-dns: 192.168.1.20
+dns: 
+  - 192.168.1.20
+  - 192.168.2.20
 webserver_url: 192.168.1.20
 webserver_port: 8080
 
