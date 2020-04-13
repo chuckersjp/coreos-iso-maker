@@ -1,5 +1,9 @@
-# coreos-iso-maker V2.4
-New in this version:  The `dns` variable in `group_vars/all.yml` is now a list.  Because of the way DNS works
+# coreos-iso-maker V2.4.1
+Bug fixes and updated output to call the ignition files named based on the group.  E.g. The `[masters]` group creates
+a `masters.ign` file to boot from, `[bootstrap]` uses the `bootstrap.ign` file.
+
+New in  coreos-iso-maker V2.4
+This version:  The `dns` variable in `group_vars/all.yml` is now a list.  Because of the way DNS works
 do NOT specify more than 3 servers for this.  Thanks to Scott Worthington (https://github.com/worsco) for pointers
 on how to do this.
 
