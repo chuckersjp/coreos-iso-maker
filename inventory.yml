@@ -1,9 +1,9 @@
 ---
 all:
   children:
-    bootstrap_node:
+    bootstrap:
       hosts:
-        bootstrap.example.com:
+        bootstrap_node.example.com:
           ipv4: 192.168.122.15
     
     masters:
