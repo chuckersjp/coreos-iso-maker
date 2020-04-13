@@ -69,6 +69,6 @@ menu separator # insert an empty line
 label Linux
   menu label ^Install on {{ server }}
   kernel /images/vmlinuz
-  append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes ip={{ hostvars[server].ipv4 }}::{{ hostvars[server].gateway }}:{{ hostvars[server].netmask }}:{{ server }}:{{ hostvars[server].interface }}:none {% for myns in dns %}nameserver={{ myns }} {% endfor %}coreos.inst.install_dev=sda coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ hostvars[server].inventory_hostname_short }}.ign
+  append initrd=/images/initramfs.img nomodeset rd.neednet=1 coreos.inst=yes ip={{ hostvars[server].ipv4 }}::{{ hostvars[server].gateway }}:{{ hostvars[server].netmask }}:{{ server }}:{{ hostvars[server].interface }}:none {% for myns in dns %}nameserver={{ myns }} {% endfor %}coreos.inst.install_dev=sda coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ hostvars[server].group_names[0] }}.ign
 {% endfor %}
 menu end
