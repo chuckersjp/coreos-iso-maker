@@ -16,7 +16,7 @@
   - block:
     - name: Get the original ISO
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ ocp_version }}/latest/{{ iso_name }}
+        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ ocp_version }}/{{ ocp_version }}.0/{{ iso_name }}
         dest: /tmp
         checksum: sha256:{{ iso_checksum }}
 
@@ -57,12 +57,14 @@
   - name: Add second install DNS
     set_fact:
       cmd_args: "{{ cmd_args }} nameserver={{ dns[1] }}"
-    when: "{{ dns[1] }}" is defined
+    when: "{{ dns[1] }} is defined"
+    ignore_errors: true
 
   - name: Add third install DNS
     set_fact:
       cmd_args: "{{ cmd_args }} nameserver={{ dns[2] }}"
-    when: "{{ dns[2] }}" is defined
+    when: "{{ dns[2] }} is defined"
+    ignore_errors: true
 
   - name: Add install device name
     set_fact:
@@ -74,7 +76,7 @@
 
   - name: Add ignition_url
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ inventory_hostname_short }}.ign"
+      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ group_names[0] }}.ign"
 
   - name: Replace the isolinux.cfg file
     template:
