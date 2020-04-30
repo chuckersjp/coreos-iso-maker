@@ -1,4 +1,9 @@
-# coreos-iso-maker V2.4.1
+# coreos-iso-maker V2.4.2
+New feature:  The MULTI ISO maker now has a 10 second timeout before it autoboots the installer.  This feature
+does NOT work on the SINGLE ISO version because of the risks associated with having it IP clashes.  Thanks to
+Victor Sira for nudging me to add this
+
+New in V2.4.1
 Bug fixes and updated output to call the ignition files named based on the group.  E.g. The `[masters]` group creates
 a `masters.ign` file to boot from, `[bootstrap]` uses the `bootstrap.ign` file.
 
