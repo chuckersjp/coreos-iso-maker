@@ -2,7 +2,8 @@
 Thanks to https://github.com/christianh814 for a PR that now includes an `install_drive` parameter to deal with
 cases where the default install drive is something other than `sda` (like `vda` found in libvirt).  Also note
 that coreos-iso-maker has support for tags if you need older versions.  Current tags are v4.2 and v4.3.  Support
-for v4.4 and later is on the horizon once I get some cycles.
+for v4.4 and later is on the horizon once I get some cycles.  This version also ensures `rsync` is installed for
+the minimalists out there.
 
 New in V2.4.2
 New feature:  The MULTI ISO maker now has a 10 second timeout before it autoboots the installer.  This feature

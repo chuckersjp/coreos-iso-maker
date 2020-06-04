@@ -7,10 +7,11 @@
   
   - name: Ensure mkisofs and rsync is installed
     yum:
-      name: {{ item }}
+      name: {{ packages }}
     become: true
     delegate_to: localhost
-    loop:
+    vars:
+      packages:
       - rsync
       - genisoimage
 
