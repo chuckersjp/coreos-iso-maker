@@ -68,7 +68,7 @@
 
   - name: Add install device name
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.install_dev=sda"
+      cmd_args: "{{ cmd_args }} coreos.inst.install_dev={{ install_drive | default(sda) }}"
 
   - name: Add image_url
     set_fact:
