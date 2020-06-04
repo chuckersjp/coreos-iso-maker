@@ -5,11 +5,14 @@
 
   pre_tasks: 
   
-  - name: Ensure mkisofs is installed
+  - name: Ensure mkisofs and rsync is installed
     yum:
-      name: genisoimage
+      name: {{ item }}
     become: true
     delegate_to: localhost
+    loop:
+      - rsync
+      - genisoimage
 
   tasks:
 
