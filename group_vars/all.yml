@@ -3,12 +3,17 @@ gateway: 192.168.122.1
 netmask: 255.255.255.0
 # VMWare default ens192
 # KVM default ens3
+# Libvirt default enp1s0
 interface: ens192
 dns: 
   - 192.168.1.20
   - 192.168.2.20
 webserver_url: 192.168.1.20
 webserver_port: 8080
+
+# Drive to install RHCOS
+# Libvirt - can be vda
+install_drive: sda
 
 ocp_version: 4.3
 iso_checksum: 302081da24277ed752fee8d69839227f4f24ec71261f9dfe2752ea8c0f20a0ed
