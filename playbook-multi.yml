@@ -70,6 +70,11 @@
     when: "{{ dns[2] }} is defined"
     ignore_errors: true
 
+  - name: Add ip address info for second NIC
+    set_fact:
+      cmd_args: "{{ cmd_args }} ip={{ nic2_ipv4 }}::{{ gateway2 }}:{{ netmask2 }}:{{ inventory_hostname }}:{{ interface2 }}:none"
+    when: nic2_ipv4 is defined
+
   - name: Add install device name
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.install_dev={{ install_drive | default(sda) }}"

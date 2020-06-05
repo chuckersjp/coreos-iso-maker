@@ -1,10 +1,13 @@
 ---
 gateway: 192.168.122.1
 netmask: 255.255.255.0
+gateway2: 192.168.132.1
+netmask2: 255.255.255.0
 # VMWare default ens192
 # KVM default ens3
 # Libvirt default enp1s0
 interface: ens192
+interface2: ens224
 dns: 
   - 192.168.1.20
   - 192.168.2.20
