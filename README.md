@@ -18,12 +18,15 @@ If you would prefer to have multiple ISOs, there is a separate playbook for that
 In the `group_vars/all.yml` file, define the following variables:
 
 `gateway`  	- default router IP
+`gateway2`  	- default router IP for 2nd NIC (OPTIONAL)
 
 `netmask`  	- default netmask
+`netmask2`  	- default netmask for 2nd NIC (OPTIONAL)
 
 `interface` 	- NIC device name.  Defaults to `ens192` which is default for VMWare
+`interface2` 	- NIC device name. for 2nd NIC (OPTIONAL) Defaults to `en224` which is default for VMWare
 
-`dns`		- dns server
+`dns`		- dns server.  This can be done as a list.  Don't add more than 3.
 
 `webserver_url` - webserver that holds the Ignition file
 
@@ -47,6 +50,8 @@ In `inventory.yml` you will need to define your hosts:
 
 `workers`	- However many worker nodes you want and their corresponding `ipv4` addresses.  Recommend no more than 3 at a go.
 
+There is a second example file called `inventory-multinic.yml` for an example of how to setup dual NIC machines.
+
 You will need to use create individual ignition files and load them to your webserver.
 This project does NOT currently do that.
 
@@ -57,6 +62,10 @@ For single:
 
 For multiple:
 `ansible-playbook playbook-multi.yml -K`
+
+The included `ansible.cfg` file assumes the name of the inventory file is `inventory.yml`  Change it
+in there if you want to use a different one or include the `-i <inventory-filename>` option to change it
+on the command line.
 
 The ISO(s) will be created in the `/tmp` directory.  The `-K` is to request for the BECOME password which is
 required to mount an ISO (assuming you don't have passwordless `sudo`).
