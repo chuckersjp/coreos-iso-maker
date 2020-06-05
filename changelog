@@ -1,0 +1,40 @@
+# coreos-iso-maker V2.5
+New feature!  coreos-iso-maker now supports 2 NIC installs.  More should be possible but you are on your own for 
+adding that.  :-)  Just follow the examples. *N.B.* The _may_ be an issue with the hostname being the same for
+both network interfaces.  If anyone notices an issue, please speak up!
+
+New in V2.4.3
+Thanks to https://github.com/christianh814 for a PR that now includes an `install_drive` parameter to deal with
+cases where the default install drive is something other than `sda` (like `vda` found in libvirt).  Also note
+that coreos-iso-maker has support for tags if you need older versions.  Current tags are v4.2 and v4.3.  Support
+for v4.4 and later is on the horizon once I get some cycles.  This version also ensures `rsync` is installed for
+the minimalists out there.
+
+New in V2.4.2
+New feature:  The MULTI ISO maker now has a 10 second timeout before it autoboots the installer.  This feature
+does NOT work on the SINGLE ISO version because of the risks associated with having it IP clashes.  Thanks to
+Victor Sira for nudging me to add this
+
+New in V2.4.1
+Bug fixes and updated output to call the ignition files named based on the group.  E.g. The `[masters]` group creates
+a `masters.ign` file to boot from, `[bootstrap]` uses the `bootstrap.ign` file.
+
+New in  coreos-iso-maker V2.4
+This version:  The `dns` variable in `group_vars/all.yml` is now a list.  Because of the way DNS works
+do NOT specify more than 3 servers for this.  Thanks to Scott Worthington (https://github.com/worsco) for pointers
+on how to do this.
+
+New in Version 2.3
+This version incorporates the ability to generate either a single ISO for OCP 4.x
+installations or multiple ISOs depending on needs.  These ISOs are created for
+when you need statis IPs.
+
+New from version 2.2:  Make sure that genisoimage package is installed.
+Special thanks to Scott Worthington (https://github.com/worsco)
+for this Pull Request.
+
+New in version 2.3: Enable UEFI booting by also adjusting the grub.cfg.  This
+also fixed a long standing and unnoticed bug in previous version.  Special thanks
+to ahmbas (https://github.com/ahmbas) for helping me find this bug and making me learn
+more about ISOLINUX vs. UEFI booting.
+
