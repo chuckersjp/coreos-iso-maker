@@ -20,7 +20,7 @@
   - block:
     - name: Get the original ISO
       get_url:
-        url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/{{ ocp_version }}/{{ ocp_version }}.0/{{ iso_name }}
+        url: https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name }}
         dest: /tmp
         checksum: sha256:{{ iso_checksum }}
 

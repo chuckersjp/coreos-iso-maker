@@ -6,6 +6,7 @@ netmask2: 255.255.255.0
 # VMWare default ens192
 # KVM default ens3
 # Libvirt default enp1s0
+# Intel NUC default eno1
 interface: ens192
 interface2: ens224
 dns: 
@@ -18,8 +19,8 @@ webserver_port: 8080
 # Libvirt - can be vda
 install_drive: sda
 
-ocp_version: 4.3
+ocp_version: 4.4.3
 iso_checksum: 302081da24277ed752fee8d69839227f4f24ec71261f9dfe2752ea8c0f20a0ed
-iso_name: rhcos-{{ ocp_version }}.0-x86_64-installer.iso
-rhcos_bios: rhcos-{{ ocp_version }}.0-x86_64-metal.raw.gz
+iso_name: rhcos-{{ ocp_version }}-x86_64-installer.x86_64.iso
+rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal.raw.gz
 ...
