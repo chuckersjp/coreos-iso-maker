@@ -1,4 +1,9 @@
-# coreos-iso-maker V2.5
+# coreos-iso-maker V2.6
+
+Many thanks to Stephen Nimmo (https://github.com/snimmo-redhat) for a Pull Request that now adds support
+for FULL X.Y.Z releases.  This feature should allow you to specify whatever version of the CoreOS image
+you want (EXCEPT 4.2 due to some weird naming changes but that is about to go EOL anyway.) 
+
 New feature!  coreos-iso-maker now supports 2 NIC installs.  More should be possible but you are on your own for 
 adding that.  :-)  Just follow the examples. *N.B.* The _may_ be an issue with the hostname being the same for
 both network interfaces.  If anyone notices an issue, please speak up!
