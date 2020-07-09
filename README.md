@@ -34,7 +34,7 @@ In the `group_vars/all.yml` file, define the following variables:
 
 `install_drive` - drive to install RHCOS on
 
-`ocp_version` 	- OCP version you are going for.  Currently defaults to 4.3
+`ocp_version` 	- Full OCP version you are going for. 4.4.3
 
 `iso_checksum`	- sha256 checksum of the ISO.  Currently correct as of 2020-01-23 and OCP 4.3
 
