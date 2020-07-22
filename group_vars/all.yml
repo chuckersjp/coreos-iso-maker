@@ -19,8 +19,8 @@ webserver_port: 8080
 # Libvirt - can be vda
 install_drive: sda
 
-ocp_version: 4.4.3
-iso_checksum: 302081da24277ed752fee8d69839227f4f24ec71261f9dfe2752ea8c0f20a0ed
+ocp_version: 4.5.2
+iso_checksum: 48e3cbbb632795f1cb4a5713d72c30b438a763468495db69c0a2ca7c7152856a
 iso_name: rhcos-{{ ocp_version }}-x86_64-installer.x86_64.iso
 rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal.raw.gz
 ...
