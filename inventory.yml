@@ -6,7 +6,7 @@ all:
         bootstrap_node.example.com:
           ipv4: 192.168.122.15
     
-    masters:
+    master:
       hosts:
         master1.example.com:
           ipv4: 192.168.122.20
@@ -17,7 +17,7 @@ all:
         master3.example.com:
           ipv4: 192.168.122.22
         
-    workers:
+    worker:
       hosts:
         worker1.example.com:
           ipv4: 192.168.122.30
