@@ -18,11 +18,19 @@
   tasks:
 
   - block:
+    - name: Check if ISO is already available
+      stat:
+        path: /tmp/{{ iso_name }}
+        checksum_algorithm: sha256
+        get_checksum: yes
+      register: iso_file
+
     - name: Get the original ISO
       get_url:
         url: https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name }}
         dest: /tmp
         checksum: sha256:{{ iso_checksum }}
+      when: iso_file.stat.exists or iso_file.stat.checksum != iso_checksum
 
     - name: Mount ISO
       mount:
