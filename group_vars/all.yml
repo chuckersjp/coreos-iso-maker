@@ -20,7 +20,7 @@ webserver_port: 8080
 install_drive: sda
 
 ocp_version: 4.4.3
-iso_checksum: 302081da24277ed752fee8d69839227f4f24ec71261f9dfe2752ea8c0f20a0ed
+iso_checksum: dc1287165ff5b9d10e729c5541b616d466a9f0ed2e3380d59490503758a4cb24
 iso_name: rhcos-{{ ocp_version }}-x86_64-installer.x86_64.iso
 rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal.raw.gz
 ...
