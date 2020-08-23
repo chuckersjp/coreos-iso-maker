@@ -29,7 +29,7 @@
         url: https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name }}
         dest: /tmp
         checksum: sha256:{{ iso_checksum }}
-      when: iso_file.stat.exists or iso_file.stat.checksum != iso_checksum
+      when: not iso_file.stat.exists or iso_file.stat.checksum != iso_checksum
 
     - name: Mount ISO
       mount:
