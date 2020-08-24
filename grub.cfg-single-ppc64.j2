@@ -1,0 +1,30 @@
+# This file is copied from
+# https://github.com/coreos/fedora-coreos-config
+
+set default="1"
+
+function load_video {
+  insmod efi_gop
+  insmod efi_uga
+  insmod video_bochs
+  insmod video_cirrus
+  insmod all_video
+}
+
+load_video
+set gfxpayload=keep
+insmod gzio
+insmod part_gpt
+insmod ext2
+
+set timeout=60
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/10_linux ###
+# Menu list items start here
+{% for server in ansible_play_hosts_all|sort %}
+menuentry 'Install RHEL CoreOS {{ server }}' --class fedora --class gun-lunux --class gnu --class os {
+	linux /images/vmlinuz nomodeset rd.neednet=1 coreos.inst=yes ip={{ hostvars[server].ipv4 }}::{{ hostvars[server].gateway }}:{{ hostvars[server].netmask }}:{{ server }}:{{ hostvars[server].interface }}:none {% if hostvars[server].nic2_ipv4 is defined %}ip={{ hostvars[server].nic2_ipv4 }}::{{ hostvars[server].gateway2 }}:{{ hostvars[server].netmask2 }}:{{ server }}:{{ hostvars[server].interface2 }}:none{% endif %}{% for myns in dns %}nameserver={{ myns }} {% endfor %}coreos.inst.install_dev={{ install_drive | default(sda) }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ hostvars[server].group_names[0] }}.ign
+	initrd /images/initramfs.img
+}
+{% endfor %}

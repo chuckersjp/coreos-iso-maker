@@ -1,4 +1,6 @@
-# coreos-iso-maker V2.7
+# coreos-iso-maker V2.8
+
+Update this version:  PPC64 support!  This requires a new variable detailed below
 
 Updates this version:  My thanks to Loic Mulder (https://github.com/lmulder) for the following tweaks and additions:
 * ISO won't be redownloaded if it is already present on the system.
@@ -46,6 +48,8 @@ In the `group_vars/all.yml` file, define the following variables:
 `iso_name`	- Name of the ISO to download.  Makes certain assumptions that should be verified
 
 `rhcos_bios`	- Name of the BIOS image to boot from.  Make certain assumptions that should be verified
+
+`arch`		- CPU Architecture type.  Must be one of `x86_64` (default) or `ppc64`  Can be defined on the commandline with `-e`
 
 In `inventory.yml` you will need to define your hosts:
 
