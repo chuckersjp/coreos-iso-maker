@@ -17,12 +17,12 @@
 
   tasks:
   - block:
-    - name: Create the download url for ppc64
+    - name: Create the download url for ppc64le
       set_fact:
         dl_url: 'https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/ppc64le/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name_ppc64 }}'
         my_iso: "{{ iso_name_ppc64 }}"
         my_cksum: "{{ iso_checksum_ppc64 }}"
-      when: arch == 'ppc64'
+      when: arch == 'ppc64le'
 
     - name: Create the download url for x86_64
       set_fact:
@@ -72,7 +72,7 @@
       dest: /tmp/rhcos-iso/boot/grub/grub.cfg
     become: true
     delegate_to: localhost
-    when: arch == 'ppc64'
+    when: arch == 'ppc64le'
 
   - block:
     - name: Relace the isolinux.cfg file
@@ -108,15 +108,15 @@
     delegate_to: localhost
     when: arch == 'x86_64'
 
-  - name: Create new ISO image for ppc64
+  - name: Create new ISO image for ppc64le
     command: >
-         /usr/bin/mkisofs -U -A 'RHCOS-ppc64' -V 'RHCOS-ppc64' -volset 'RHCOS-ppc64' -J -joliet-long -r -v -T 
+         /usr/bin/mkisofs -U -A 'RHCOS-ppc64le' -V 'RHCOS-ppc64le' -volset 'RHCOS-ppc64le' -J -joliet-long -r -v -T 
            -x ./lost+found -o /tmp/rhcos-install-cluster.iso -chrp-boot .
     args:
       chdir: /tmp/rhcos-iso/
     become: true
     delegate_to: localhost
-    when: arch == 'ppc64'
+    when: arch == 'ppc64le'
 
 - name: Cleanup tasks
   hosts: localhost

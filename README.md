@@ -49,7 +49,7 @@ In the `group_vars/all.yml` file, define the following variables:
 
 `rhcos_bios`	- Name of the BIOS image to boot from.  Make certain assumptions that should be verified
 
-`arch`		- CPU Architecture type.  Must be one of `x86_64` (default) or `ppc64`  Can be defined on the commandline with `-e`
+`arch`		- CPU Architecture type.  Must be one of `x86_64` (default) or `ppc64le` Can be defined on the commandline with `-e`
 
 In `inventory.yml` you will need to define your hosts:
 
