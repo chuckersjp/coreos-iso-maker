@@ -23,6 +23,6 @@ set default=0
 
 ### BEGIN /etc/grub.d/10_linux ###
 menuentry 'Install RHEL CoreOS {{ inventory_hostname_short }}' --class fedora --class gnu-linux --class gnu --class os {
-	linux /images/vmlinuz nomodeset rd.neednet=1 coreos.inst=yes {{ cmd_args }}
-	initrd /images/initramfs.img
+	linux /images/pxeboot/vmlinuz nomodeset rd.neednet=1 coreos.inst=yes {{ cmd_args }}
+	initrd /images/pxeboot/initrd.img
 }

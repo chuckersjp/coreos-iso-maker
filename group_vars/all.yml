@@ -23,10 +23,13 @@ install_drive: sda
 # x86_64 or ppc64le
 arch: "x86_64"
 
-ocp_version: 4.5.4
-iso_checksum: 48e3cbbb632795f1cb4a5713d72c30b438a763468495db69c0a2ca7c7152856a
+#ocp_version: 4.5.4
+ocp_version: 4.6.1
+#iso_checksum: 48e3cbbb632795f1cb4a5713d72c30b438a763468495db69c0a2ca7c7152856a
+iso_checksum: d15bd7ae942573eece34ba9c59e110e360f15608f36e9b83ab9f2372d235bef2
 iso_checksum_ppc64: ff3ef20a0c4c29022f52ad932278b9040739dc48f4062411b5a3255af863c95e
-iso_name: rhcos-{{ ocp_version }}-x86_64-installer.x86_64.iso
+#iso_name: rhcos-{{ ocp_version }}-x86_64-installer.x86_64.iso
+iso_name: rhcos-{{ ocp_version }}-x86_64-live.x86_64.iso
 iso_name_ppc64: rhcos-{{ ocp_version }}-ppc64le-installer.ppc64le.iso
 rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal.x86_64.raw.gz
 ...
