@@ -4,6 +4,9 @@ in the underlying directory structure of the ISO which broke everything so this 
 Versions should be tagged as either OCP4.5 (which works with earlier versions as well) or OCP4.6.  Make sure you
 use the correct one or you will like have issues.  My thanks to Steve Ovens for pointing out how broken this became.
 
+*Note*: You may need to upload the rhcos_rootfs image to your webserver as opposed to the BIOS image due to changes
+in the way things work for 4.6.
+
 Update this version:  PPC64 support!  This requires a new variable detailed below
 
 Updates this version:  My thanks to Loic Mulder (https://github.com/lmulder) for the following tweaks and additions:
@@ -52,6 +55,8 @@ In the `group_vars/all.yml` file, define the following variables:
 `iso_name`	- Name of the ISO to download.  Makes certain assumptions that should be verified
 
 `rhcos_bios`	- Name of the BIOS image to boot from.  Make certain assumptions that should be verified
+
+`rhcos_rootfs`	- Name of the rootfs image to boot from.  Make certain assumptions that should be verified
 
 `arch`		- CPU Architecture type.  Must be one of `x86_64` (default) or `ppc64le` Can be defined on the commandline with `-e`
 

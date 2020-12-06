@@ -17,7 +17,8 @@ webserver_port: 8080
 
 # Drive to install RHCOS
 # Libvirt - can be vda
-install_drive: sda
+#install_drive: sda
+install_drive: vda
 
 # Chose the binary architecture
 # x86_64 or ppc64le
@@ -32,4 +33,5 @@ iso_checksum_ppc64: ff3ef20a0c4c29022f52ad932278b9040739dc48f4062411b5a3255af863
 iso_name: rhcos-{{ ocp_version }}-x86_64-live.x86_64.iso
 iso_name_ppc64: rhcos-{{ ocp_version }}-ppc64le-installer.ppc64le.iso
 rhcos_bios: rhcos-{{ ocp_version }}-x86_64-metal.x86_64.raw.gz
+rhcos_rootfs: rhcos-{{ ocp_version }}-x86_64-live-rootfs.x86_64.img
 ...

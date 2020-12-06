@@ -100,9 +100,13 @@
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.install_dev={{ install_drive | default(sda) }}"
 
-  - name: Add image_url
+#  - name: Add image_url
+#    set_fact:
+#      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }}"
+
+  - name: Add rootfs_url
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }}"
+      cmd_args: "{{ cmd_args }} coreos.live.rootfs_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_rootfs }}"
 
   - name: Add ignition_url
     set_fact:
