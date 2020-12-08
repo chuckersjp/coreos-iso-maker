@@ -1,8 +1,10 @@
-# coreos-iso-maker V2.9
+# coreos-iso-maker V2.9.1
 Update this version:  This version supports the new OCP 4.6 ISO.  There was a name change as well as a change
 in the underlying directory structure of the ISO which broke everything so this is no longer backwards compatible.
 Versions should be tagged as either OCP4.5 (which works with earlier versions as well) or OCP4.6.  Make sure you
 use the correct one or you will like have issues.  My thanks to Steve Ovens for pointing out how broken this became.
+Additional thanks to Lucas SCHWAB (https://github.com/lukyky414) for pointing out some of my misunderstandings
+with some of the variables in use.
 
 *Note*: You may need to upload the rhcos_rootfs image to your webserver as opposed to the BIOS image due to changes
 in the way things work for 4.6.
