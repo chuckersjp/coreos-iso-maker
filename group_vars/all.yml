@@ -15,6 +15,9 @@ dns:
 webserver_url: 192.168.1.20
 webserver_port: 8080
 
+# Ignition subpath in http server (optionnal, defaults to nothing)
+webserver_ignition_path: ignition
+
 # Drive to install RHCOS
 # Libvirt - can be vda
 install_drive: sda
