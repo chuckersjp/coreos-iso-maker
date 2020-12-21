@@ -1,5 +1,5 @@
 ---
-- name: Playbook to recreate the RHCOS ISO for static IP
+- name: Playbook to recreate the RHCOS ISO
   hosts: localhost
   gather_facts: false
 
@@ -70,31 +70,26 @@
     set_fact:
       cmd_args: ""
 
+  - name: Add ip with dhcp config
+    set_fact:
+      cmd_args: "{{ cmd_args }} ip=dhcp "
+    when: dhcp is defined and dhcp
+
   - name: Add ip address info
     set_fact:
       cmd_args: "{{ cmd_args }} ip={{ ipv4 }}::{{ gateway }}:{{ netmask }}:{{ inventory_hostname }}:{{ interface }}:none"
+    when: dhcp is not defined or not dhcp
 
   - name: Add install DNS
     set_fact:
-      cmd_args: "{{ cmd_args }} nameserver={{ dns[0] }}"
-
-# The following can likely be done better but I can't think of a cleaner way just yet.
-  - name: Add second install DNS
-    set_fact:
-      cmd_args: "{{ cmd_args }} nameserver={{ dns[1] }}"
-    when: "{{ dns[1] }} is defined"
-    ignore_errors: true
-
-  - name: Add third install DNS
-    set_fact:
-      cmd_args: "{{ cmd_args }} nameserver={{ dns[2] }}"
-    when: "{{ dns[2] }} is defined"
-    ignore_errors: true
+      cmd_args: "{{ cmd_args }} nameserver={{ item }}"
+    with_items: "{{ dns }}"
+    when: dns is defined and (dhcp is not defined or not dhcp)
 
   - name: Add ip address info for second NIC
     set_fact:
       cmd_args: "{{ cmd_args }} ip={{ nic2_ipv4 }}::{{ gateway2 }}:{{ netmask2 }}:{{ inventory_hostname }}:{{ interface2 }}:none"
-    when: nic2_ipv4 is defined
+    when: nic2_ipv4 is defined and dhcp is not defined or not dhcp
 
   - name: Add install device name
     set_fact:
