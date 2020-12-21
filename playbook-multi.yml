@@ -100,10 +100,6 @@
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.install_dev={{ install_drive | default(sda) }}"
 
-  - name: Add image_url
-    set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.image_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ rhcos_bios }}"
-
   - name: Add ignition_url
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ group_names[0] }}.ign"
@@ -118,7 +114,7 @@
 
     - name: Create new ISO image for ppc64le
       command: >
-           /usr/bin/mkisofs -U -A 'RHCOS-ppc64le' -V 'RHCOS-ppc64le' -volset 'RHCOS-ppc64le' -J -joliet-long -r -v -T
+           /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T
              -x ./lost+found -o /tmp/rhcos-install-{{ inventory_hostname_short }}.iso -chrp-boot .
       args:
         chdir: /tmp/rhcos-iso/
@@ -143,7 +139,7 @@
     
     - name: Create new ISO image for x86_64
       command: >
-           /usr/bin/mkisofs -U -A 'RHCOS-x86_64' -V 'RHCOS-x86_64' -volset 'RHCOS-x86_64' -J -joliet-long -r -v -T 
+           /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T 
              -x ./lost+found -o /tmp/rhcos_install-{{ inventory_hostname_short}}.iso -b isolinux/isolinux.bin  
              -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e images/efiboot.img 
              -no-emul-boot .
