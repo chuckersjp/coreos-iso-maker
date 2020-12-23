@@ -4,14 +4,17 @@ all:
     bootstrap:
       hosts:
         bootstrap_node.example.com:
+          dhcp: true
           ipv4: 192.168.122.15
     
     master:
       hosts:
         master1.example.com:
+          dhcp: true
           ipv4: 192.168.122.20
 
         master2.example.com:
+          dhcp: false
           ipv4: 192.168.122.21
 
         master3.example.com:
@@ -20,9 +23,11 @@ all:
     worker:
       hosts:
         worker1.example.com:
+          dhcp: true
           ipv4: 192.168.122.30
 
         worker2.example.com:
+          dhcp: false
           ipv4: 192.168.122.31
 
         worker3.example.com:
