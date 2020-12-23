@@ -95,9 +95,19 @@
     set_fact:
       cmd_args: "{{ cmd_args }} coreos.inst.install_dev={{ install_drive | default(sda) }}"
 
+  - name: Add custom location of ignition files
+    set_fact:
+      webserver_ignition_fullpath: "/{{ webserver_ignition_path }}/"
+    when: webserver_ignition_path is defined
+
+  - name: Add default location of ignition files
+    set_fact:
+      webserver_ignition_fullpath: "/"
+    when: webserver_ignition_path is not defined
+
   - name: Add ignition_url
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}/{{ group_names[0] }}.ign"
+      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}{{ webserver_ignition_fullpath }}{{ group_names[0] }}.ign"
 
   - block:
     - name: Replace the grub.cfg file

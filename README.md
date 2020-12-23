@@ -43,6 +43,8 @@ In the `group_vars/all.yml` file, define the following variables:
 
 `webserver_port` - webserver port for the webserver above
 
+`webserver_ignition_path` - Ignition subpath in http server
+
 `install_drive` - drive to install RHCOS on
 
 `ocp_version` 	- Full OCP version you are going for. 4.4.3
