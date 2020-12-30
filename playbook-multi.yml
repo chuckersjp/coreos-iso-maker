@@ -84,13 +84,12 @@
     set_fact:
       cmd_args: "{{ cmd_args }} nameserver={{ item }}"
     with_items: "{{ dns }}"
-    when: dns is defined and (dhcp is not defined or not dhcp)
+    when: (dns is defined) and ((dhcp is not defined) or not dhcp)
 
   - name: Add ip address info for second NIC
     set_fact:
       cmd_args: "{{ cmd_args }} ip={{ nic2_ipv4 }}::{{ gateway2 }}:{{ netmask2 }}:{{ inventory_hostname }}:{{ interface2 }}:none"
-    when: (nic2_ipv4 is defined) and dhcp is not defined or not dhcp
-    ignore_errors: true
+    when: nic2_ipv4 is defined and (not (dhcp | default(false)))
 
   - name: Add install device name
     set_fact:
