@@ -107,7 +107,7 @@
 
   - name: Add ignition_url
     set_fact:
-      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url={{ webserver_url }}:{{ webserver_port | default(80) }}{{ webserver_ignition_fullpath }}{{ group_names[0] }}.ign"
+      cmd_args: "{{ cmd_args }} coreos.inst.ignition_url=http://{{ webserver_url }}:{{ webserver_port | default(80) }}{{ webserver_ignition_fullpath }}{{ group_names[0] }}.ign"
 
   - block:
     - name: Replace the grub.cfg file
