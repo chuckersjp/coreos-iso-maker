@@ -3,7 +3,7 @@ all:
   children:
     bootstrap:
       hosts:
-        bootstrap_node.example.com:
+        bootstrap.example.com:
           dhcp: false
           ipv4: 192.168.122.15
     
