@@ -22,6 +22,10 @@ webserver_ignition_path: ignition
 # Libvirt - can be vda
 install_drive: sda
 
+# Timeout for selection menu during first boot
+# '-1' for infinite timeout. Default '10'
+boot_timeout: 10
+
 # Chose the binary architecture
 # x86_64 or ppc64le
 arch: "x86_64"
