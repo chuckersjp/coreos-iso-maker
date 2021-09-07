@@ -1,8 +1,6 @@
 # This file is copied from
 # https://github.com/coreos/fedora-coreos-config
 
-set default="1"
-
 function load_video {
   insmod efi_gop
   insmod efi_uga
@@ -17,7 +15,8 @@ insmod gzio
 insmod part_gpt
 insmod ext2
 
-set timeout=60
+set timeout={{ boot_timeout }}
+set default=0
 ### END /etc/grub.d/00_header ###
 
 ### BEGIN /etc/grub.d/10_linux ###
