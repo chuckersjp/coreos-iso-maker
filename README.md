@@ -1,3 +1,11 @@
+## WARNING!  WARNING!  WARNING!
+It has been brought to my attention that use of coreos-iso-maker may geerate images that may NOT be supported
+if you plan to install your cluster in FIPS mode.  A customer was having issues with a FIPS based cluster that
+they couldn't update which may or may not be related to their use of this repo.  You have been warned!
+
+Also note that in upcoming version of OpenShift, there will be the supported ability customize the ISO installer.
+See [here](https://coreos.github.io/coreos-installer/cmd/iso/#coreos-installer-iso-customize) for more details
+
 # coreos-iso-maker V2.10
 Update this version:  This version supports the new OCP 4.6 ISO.  There was a name change as well as a change
 in the underlying directory structure of the ISO which broke everything so this is no longer backwards compatible.
