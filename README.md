@@ -14,11 +14,11 @@ use the correct one or you will like have issues.
 
 My thanks to Steve Ovens for pointing out how broken this became.
 
-A *HUGE* thanks to Lucas SCHWAB (https://github.com/lukyky414) for a number of pull requests that were to fix a lot
+A *HUGE* thanks to ITS4U (https://github.com/its4u) for a number of pull requests that were to fix a lot
 of the issues with the 4.6 liveCD due to all the changes in the ISO as well as my lack of understanding with some of 
 the variables in use.
 
-As part of Lucas's work, there is a new parameter for the inventory that defines whether DHCP should be used.
+As part of ITS4U's work, there is a new parameter for the inventory that defines whether DHCP should be used.
 Normally, of course, this will be set to false as that is the entire point of this project.  But if you have 
 other NICs that make use of it, it can be turned on for those.
 
@@ -38,11 +38,8 @@ If you would prefer to have multiple ISOs, there is a separate playbook for that
 In the `group_vars/all.yml` file, define the following variables:
 
 * `gateway`  	- default router IP
-* `gateway2`  	- default router IP for 2nd NIC (OPTIONAL)
 * `netmask`  	- default netmask
-* `netmask2`  	- default netmask for 2nd NIC (OPTIONAL)
 * `interface` 	- NIC device name.  Defaults to `ens192` which is default for VMWare
-* `interface2` 	- NIC device name. for 2nd NIC (OPTIONAL) Defaults to `en224` which is default for VMWare
 * `dns`		- dns server.  This can be done as a list.  Don't add more than 3.
 * `webserver_url` - webserver that holds the Ignition file
 * `webserver_port` - webserver port for the webserver above
@@ -60,7 +57,7 @@ In `inventory.yml` you will need to define your hosts:
 * `masters`	- You will need to define `3` master nodes and their `ipv4` address
 * `workers`	- However many worker nodes you want and their corresponding `ipv4` addresses.  Recommend no more than 3 at a go.
 
-There is a second example file called `inventory-multinic.yml` for an example of how to setup dual NIC machines.
+There is a second example file called `inventory-multinic.yml` for an example of how to setup multiple NIC machines.
 
 You will need to use create individual ignition files and load them to your webserver.
 This project does **NOT** currently do that.

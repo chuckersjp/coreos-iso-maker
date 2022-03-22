@@ -1,11 +1,12 @@
 ---
-- name: Playbook to recreate the RHCOS ISO
+##########
+- name: Check installation
   hosts: localhost
-  gather_facts: false
-
-  pre_tasks:
-
-  - name: Ensure mkisofs and rsync is installed
+  become: true
+  gather_facts: true
+  
+  tasks:
+  - name: Ensure mkisofs and rsync is installed (Centos / RHEL)
     yum:
       name: "{{ packages }}"
     become: true      
@@ -14,17 +15,34 @@
       packages:
       - rsync 
       - genisoimage
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+  - name: Ensure mkisofs and rsync is installed (Ubuntu / Debian)
+    apt:
+      name: "{{ packages }}"
+    become: true      
+    delegate_to: localhost
+    vars:     
+      packages:
+      - rsync 
+      - genisoimage
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+##########
+- name: Check the original RHCOS ISO
+  hosts: localhost
+  gather_facts: false
 
   tasks:
   - block:
-    - name: Create the download url for ppc64le
+    - name: Create the download url (ppc64le)
       set_fact:
         dl_url: 'https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/ppc64le/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name_ppc64 }}'
         my_iso: "{{ iso_name_ppc64 }}"
         my_cksum: "{{ iso_checksum_ppc64 }}"
       when: arch == 'ppc64le'
 
-    - name: Create the download url for x86_64
+    - name: Create the download url (x86_64)
       set_fact:
         dl_url: 'https://mirror.openshift.com/pub/openshift-v{{ ocp_version.split(".")[0] }}/dependencies/rhcos/{{ ocp_version.split(".")[0] }}.{{ ocp_version.split(".")[1] }}/{{ ocp_version }}/{{ iso_name }}'
         my_iso: "{{ iso_name }}"
@@ -59,71 +77,64 @@
         src: /mnt/iso/
         dest: /tmp/rhcos-iso/
 
-- name: Generate the menu list
+##########
+- name: Create the custom iso
   hosts: all
   order: sorted
   gather_facts: false
 
   tasks:
+  - name: Generate the webserver full path
+    set_fact:
+      webserver_ignition_fullpath: "http://{{ webserver_url }}:{{ webserver_port }}{{ webserver_ignition_path | default('') }}/"
 
-  - name: Relace the grub.cfg file
-    template:
-      src: grub.cfg-single.j2
-      dest: /tmp/rhcos-iso/boot/grub/grub.cfg
-    become: true
-    delegate_to: localhost
-    when: arch == 'ppc64le'
-
+  # ppc64
   - block:
-    - name: Relace the isolinux.cfg file
+    - name: Relace the grub.cfg file (ppc64le)
       template:
-        src: isolinux.cfg-single.j2
-        dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
-      become: true
-      delegate_to: localhost
-   
-    - name: Relace the grub.cfg file
-      template:
-        src: grub.cfg-single.j2
-        dest: /tmp/rhcos-iso/EFI/redhat/grub.cfg
-      become: true
-      delegate_to: localhost
-    when: arch == 'x86_64'
+        src: "grub.cfg-single.j2"
+        dest: /tmp/rhcos-iso/boot/grub/grub.cfg  
 
-- name: Make the single ISO
-  hosts: localhost
-  gather_facts: false
-
-  tasks:
-
-  - name: Create new ISO image for x86_64
-    command: >
-         /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T
-           -x ./lost+found -o /tmp/rhcos-install-cluster.iso -b isolinux/isolinux.bin
-           -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e images/efiboot.img
-           -no-emul-boot .
-    args:
-      chdir: /tmp/rhcos-iso/
-    become: true
-    delegate_to: localhost
-    when: arch == 'x86_64'
-
-  - name: Create new ISO image for ppc64le
-    command: >
-         /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T 
-           -x ./lost+found -o /tmp/rhcos-install-cluster.iso -chrp-boot .
-    args:
-      chdir: /tmp/rhcos-iso/
+    - name: Create new ISO image (ppc64le)
+      command: >
+          /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T 
+            -x ./lost+found -o /tmp/rhcos-install-cluster.iso -chrp-boot .
+      args:
+        chdir: /tmp/rhcos-iso/
     become: true
     delegate_to: localhost
     when: arch == 'ppc64le'
 
+  # x86_64
+  - block:
+    - name: Relace the isolinux.cfg file (x86_64)
+      template:
+        src: "isolinux.cfg-single.j2"
+        dest: /tmp/rhcos-iso/isolinux/isolinux.cfg
+  
+    - name: Relace the grub.cfg file (x86_64)
+      template:
+        src: "grub.cfg-single.j2"
+        dest: /tmp/rhcos-iso/EFI/redhat/grub.cfg
+
+    - name: Create new ISO image (x86_64)
+      command: >
+          /usr/bin/mkisofs -U -A 'RHCOS-CustomIso' -V 'RHCOS-CustomIso' -volset 'RHCOS-CustomIso' -J -joliet-long -r -v -T
+            -x ./lost+found -o /tmp/rhcos-install-cluster.iso -b isolinux/isolinux.bin
+            -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -eltorito-alt-boot -e images/efiboot.img
+            -no-emul-boot .
+      args:
+        chdir: /tmp/rhcos-iso/
+    become: true
+    delegate_to: localhost
+    when: arch == 'x86_64'
+
+##########
 - name: Cleanup tasks
   hosts: localhost
   gather_facts: false
 
   tasks:
-
   - block: 
     - name: Unmount ISO
       mount:

@@ -62,11 +62,13 @@ menu tabmsg Press Tab for full configuration options on menu items.
 menu separator # insert an empty line
 menu separator # insert an empty line
 
+{% set server = inventory_hostname -%}
+
 label linux
-  menu label ^Install RHEL CoreOS {{ inventory_hostname_short }}
+  menu label ^Install RHEL CoreOS {{ server }}
   menu default
   kernel /images/pxeboot/vmlinuz
-  append initrd=/images/pxeboot/initrd.img,/images/ignition.img random.trust_cpu=on rd.luks.options=discard coreos.liveiso=RHCOS-CustomIso ignition.firstboot ignition.platform.id=metal {{ cmd_args }}
+  append initrd=/images/pxeboot/initrd.img,/images/ignition.img {% include 'arguments.j2' %} 
 
 menu separator # insert an empty line
 
