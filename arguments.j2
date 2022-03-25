@@ -1,0 +1,31 @@
+random.trust_cpu=on {# -#}
+rd.luks.options=discard {# -#}
+coreos.liveiso=RHCOS-CustomIso {# -#}
+ignition.firstboot {# -#}
+ignition.platform.id=metal {# -#}
+coreos.inst.install_dev={{ install_drive | default(sda) }} {# -#}
+coreos.inst.ignition_url={{ webserver_ignition_fullpath }}{{ hostvars[server].group_names[0] }}.ign {# -#}
+{%- if hostvars[server].interfaces is defined -%}
+  {%- for intf_name, intf in hostvars[server].interfaces.items() -%}
+    ip={{ intf.ipv4 -}}
+     ::{{ intf.gtwy -}}
+      :{{ intf.mask -}}
+      :{{ server -}}
+      :{{ intf_name -}}
+      :none {# -#}
+  {%- endfor -%}
+{%- else -%}
+  {%- if hostvars[server].ipv4 is defined -%}
+    ip={{ hostvars[server].ipv4 -}}
+     ::{{ hostvars[server].gateway -}}
+      :{{ hostvars[server].netmask -}}
+      :{{ server -}}
+      :{{ hostvars[server].interface -}}
+      :none {# -#}
+  {%- else -%}
+    ip=dhcp {# -#}
+  {%- endif -%}
+{%- endif -%}
+{%- for myns in dns -%}
+  nameserver={{ myns }} {# -#}
+{%- endfor -%}
