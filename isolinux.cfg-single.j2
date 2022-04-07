@@ -69,6 +69,6 @@ menu separator # insert an empty line
 label Linux
   menu label ^Install on {{ server }}
   kernel /images/pxeboot/vmlinuz
-  append initrd=/images/pxeboot/initrd.img,/images/ignition.img {% include 'arguments.j2' %}
+  append initrd=/images/pxeboot/initrd.img,/images/ignition.img {% include 'arguments.j2' %} 
 {% endfor %}
 menu end
